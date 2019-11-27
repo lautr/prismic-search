@@ -1,109 +1,80 @@
 <template>
-  <v-app>
-    <v-navigation-drawer
-      v-model="sideNavigationActive"
-      app
-      color="primary"
-      left
-      absolute
-      dark
-    >
-      <v-list
-        dense
-        nav
-        class="py-0"
+  <v-app light>
+    <v-app-bar app color="primary">
+      <v-toolbar-title>
+        Primsic Search
+      </v-toolbar-title>
+      <v-chip-group
+        class="ml-4"
       >
-        <v-list-item two-line>
-          <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/men/81.jpg">
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>Application</v-list-item-title>
-            <v-list-item-subtitle>Subtext</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-divider />
-
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
+        <v-chip
+          v-if="$store.state.credentials.repository"
+          disabled
         >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar
-      app
-    >
-      <v-app-bar-nav-icon
-        @click="sideNavigationActive = !sideNavigationActive"
-      />
-      <v-toolbar-title>Page title</v-toolbar-title>
-      <!-- -->
+          {{ $store.state.credentials.repository }}
+        </v-chip>
+        <v-chip
+          v-if="$store.state.credentials.documentType"
+          disabled
+        >
+          {{ $store.state.credentials.documentType }}
+        </v-chip>
+      </v-chip-group>
     </v-app-bar>
-
-    <!-- Sizes your content based upon application components -->
     <v-content>
       <!-- Provides the application the proper gutter -->
-      <v-container
-        fluid
-      >
-        <v-card
-          class="mx-auto"
-        >
-          <v-card-title>
-            <nuxt />
-          </v-card-title>
-        </v-card>
+      <v-container fluid>
         <!-- If using vue-router -->
+        <v-alert
+          dismissible
+          type="info"
+        >
+          <span
+            class="title"
+          >
+            How To use the Search
+          </span>
+          <ol>
+            <li>Enter &amp; Set your repository name &amp; content type ( API Identifier )</li>
+            <li>This will generate a search form based on your properties</li>
+            <li>After submitting your query wait a moment till the edit button appears</li>
+            <li>If the content you where looking for shows up in the result list it should also be in the edit button when clicking it </li>
+          </ol>
+        </v-alert>
+        <router-view />
       </v-container>
     </v-content>
 
     <v-footer app>
       <!-- -->
+      <v-snackbar
+        :value="$store.state.notification.message"
+        bottom
+        right
+        :timeout="0"
+      >
+        {{ $store.getters['notification/getMessage'] }}
+        <v-btn
+          color="pink"
+          text
+          @click="$store.commit('notification/setMessage', false)"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
     </v-footer>
-    <v-snackbar
-      v-model="countHasBeenUpdated"
-      :timeout="3000"
-      bottom
-      right
-    >
-      count has been changed
-    </v-snackbar>
   </v-app>
 </template>
-<script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import { Getter } from 'vuex-class'
 
-@Component({
+<script>
+export default {
   data () {
     return {
-      sideNavigationActive: true,
-      items: [
-        { title: 'Dashboard', icon: 'dashboard' },
-        { title: 'Photos', icon: 'photo' },
-        { title: 'About', icon: 'check_circle' }
-      ]
+      repo: null
     }
-  }
-})
-export default class Home extends Vue {
-  @Getter('counter/getCount') getCount: any
-  @Watch('getCount') onCountChange (val: Number, oldVal: Number) {
-    this.countHasBeenUpdated = (val !== oldVal)
-  }
+  },
+  created () {
 
-  countHasBeenUpdated = false
+  }
 }
 </script>

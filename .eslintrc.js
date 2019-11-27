@@ -1,8 +1,16 @@
 module.exports = {
+  root: true,
+  env: {
+    browser: true,
+    node: true
+  },
+  parserOptions: {
+    parser: 'babel-eslint'
+  },
   extends: [
-    '@nuxtjs/eslint-config-typescript'
+    '@nuxtjs'
   ],
-  globals: {
-    cy: 'readonly'
+  // add your custom rules here
+  rules: {
   }
 }

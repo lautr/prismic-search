@@ -10,3 +10,9 @@ yarn-error.log
 
 # temp files
 test/e2e/screenshots
+
+# environment
+.env
+
+# crash files for node
+report*

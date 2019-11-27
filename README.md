@@ -1,40 +1,22 @@
-# Welcome Prismic Search 👋
+# prismic-search
 
-## Install
+> the missing prismic backend search
 
-```sh
-yarn install
+## Build Setup
+
+``` bash
+# install dependencies
+$ yarn install
+
+# serve with hot reload at localhost:3000
+$ yarn dev
+
+# build for production and launch server
+$ yarn build
+$ yarn start
+
+# generate static project
+$ yarn generate
 ```
 
-## Usage for development
-
-```sh
-yarn dev
-```
-
-## Usage for produciton
-
-```sh
-yarn build
-yarn start
-```
-
-## Run tests
-
-```sh
-yarn cypress run
-```
-
-## Run lint
-
-```sh
-yarn lint
-```
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-## 📝 License
-
-This project is MIT licensed.
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
