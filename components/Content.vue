@@ -2,9 +2,6 @@
   <div
     v-if="$store.state.search.results.length > 0"
   >
-    <!-- <article data-wio-id="Xc6swRAAACQAT2We">
-      Xc6swRAAACQAT2We
-    </article> -->
     <v-simple-table>
       <template v-slot:default>
         <thead>
@@ -13,7 +10,7 @@
               Name
             </th>
             <th class="text-left">
-              Calories
+              Edit
             </th>
           </tr>
         </thead>
@@ -23,16 +20,23 @@
             :key="i"
           >
             <td>{{ titleGuesser(item.data) }}</td>
-            <td>{{ item.id }}</td>
+            <td>
+              <v-btn
+                :href="`https://${$store.state.credentials.repository}.prismic.io/documents~b=working&c=published&l=de-de/${item.id}/`"
+                target="_blank"
+              >
+                Edit
+              </v-btn>
+            </td>
           </tr>
         </tbody>
       </template>
     </v-simple-table>
-    <script
+    <!-- <script
       v-if="$store.state.search.results.length > 0"
       :key="$store.state.search.bust"
       :src="`https://static.cdn.prismic.io/prismic.min.js?new=true&repo=${$store.state.credentials.repository}&bust=${$store.state.search.bust}`"
-    />
+    /> -->
   </div>
 </template>
 <script>

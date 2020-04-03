@@ -80,7 +80,6 @@ export default {
       this.$prismic.querySearchData(
         this.documentType
       ).then((documentData) => {
-        console.log(documentData)
         this.$store.commit('search/setSchema', documentData)
       })
     }
