@@ -37,8 +37,8 @@
           <ol>
             <li>Enter &amp; Set your repository name &amp; content type ( API Identifier )</li>
             <li>This will generate a search form based on your properties</li>
-            <li>After submitting your query wait a moment till the edit button appears</li>
-            <li>If the content you where looking for shows up in the result list it should also be in the edit button when clicking it </li>
+            <li>Pressing the search button will create a list of results with an edit button</li>
+            <li>Enjoy</li>
           </ol>
         </v-alert>
         <router-view />
