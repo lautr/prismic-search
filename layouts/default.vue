@@ -35,6 +35,7 @@
             How To use the Search
           </span>
           <ol>
+            <li>You should be logged in to your prismic account</li>
             <li>Enter &amp; Set your repository name &amp; content type ( API Identifier )</li>
             <li>This will generate a search form based on your properties</li>
             <li>Pressing the search button will create a list of results with an edit button</li>
