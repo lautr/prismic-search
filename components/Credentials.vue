@@ -9,17 +9,14 @@
       <v-expansion-panel-content>
         <v-form>
           <v-row>
-            <v-col cols="6">
+            <v-col cols="12">
               <v-text-field v-model="repository" label="Repository" placeholder="my-repository-string" />
             </v-col>
-            <v-col cols="6">
-              <v-text-field v-model="token" label="Token (disabled)" disabled />
-            </v-col>
-            <v-col>
-              <v-text-field
+            <v-col v-if="types.length" cols="12">
+              <v-select
                 v-model="documentType"
-                label="Content Type"
-                placeholder="blog_post"
+                :items="types"
+                label="pick content type"
               />
             </v-col>
             <v-col cols="12">
@@ -29,14 +26,6 @@
                 @click="setCredentials"
               >
                 Set
-              </v-btn>
-              <v-btn
-                block
-                color="warning"
-                class="mt-4"
-                @click="clearCredentials"
-              >
-                Clear
               </v-btn>
             </v-col>
           </v-row>
@@ -51,6 +40,7 @@ export default {
     return {
       token: '',
       repository: '',
+      types: [],
       documentType: null
     }
   },
@@ -63,18 +53,33 @@ export default {
       }
     }
   },
+  mounted () {
+    if (localStorage.getItem('repository')) {
+      this.$store.commit('credentials/setRepository', localStorage.getItem('repository'))
+      this.repository = localStorage.getItem('repository')
+      this.populateTypes()
+    }
+    if (localStorage.getItem('documentType')) {
+      this.$store.commit('credentials/setDocumentType', localStorage.getItem('documentType'))
+      this.documentType = localStorage.getItem('documentType')
+      this.buildSeachForm()
+    }
+  },
   methods: {
+    populateTypes () {
+      this.$prismic.getRepositoryData().then((data) => {
+        this.types = Object.keys(data.types)
+      })
+    },
     setCredentials () {
       if (this.repository) {
         this.$store.commit('notification/setMessage', `${this.repository} set`)
         this.$store.commit('credentials/setRepository', this.repository)
         this.$store.commit('credentials/setDocumentType', this.documentType)
+        this.populateTypes()
 
         this.buildSeachForm()
       }
-    },
-    clearCredentials () {
-
     },
     buildSeachForm () {
       this.$prismic.querySearchData(

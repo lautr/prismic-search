@@ -1,9 +1,11 @@
 <template>
-  <div
-    v-if="$store.state.search.results.length > 0"
-  >
-    <v-simple-table>
-      <template v-slot:default>
+  <div>
+    {{ $store.getters['search/getResults'] }}
+    <div
+      v-if="$store.state.search.results.length > 0"
+    >
+      hello
+      <table>
         <thead>
           <tr>
             <th class="text-left">
@@ -30,17 +32,13 @@
             </td>
           </tr>
         </tbody>
-      </template>
-    </v-simple-table>
-    <!-- <script
-      v-if="$store.state.search.results.length > 0"
-      :key="$store.state.search.bust"
-      :src="`https://static.cdn.prismic.io/prismic.min.js?new=true&repo=${$store.state.credentials.repository}&bust=${$store.state.search.bust}`"
-    /> -->
+      </table>
+    </div>
   </div>
 </template>
 <script>
 import PrismicDOM from 'prismic-dom'
+// import { mapGetters } from "vuex"
 
 export default {
   methods: {
